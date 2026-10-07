@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Superhuman M Blocker",
+  "version": "1.0.0",
+  "description": "Stops Superhuman from reacting to M and Cmd/Ctrl+Shift+M.",
+  "content_scripts": [
+    {
+      "matches": ["https://mail.superhuman.com/*"],
+      "js": ["block.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ]
+}
