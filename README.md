@@ -1,6 +1,8 @@
 # Superhuman M Blocker
 
-A small Chrome extension (Manifest V3) that stops Superhuman (`https://mail.superhuman.com/*`) from reacting to:
+This is a purely AI-generated Chrome extension, meant to be loaded unpacked. I made it to fix an annoyance I had with Superhuman: I kept pressing a keyboard shortcut by accident, and I could not find a way to turn that shortcut off in Superhuman itself.
+
+The extension (Manifest V3) stops Superhuman (`https://mail.superhuman.com/*`) from reacting to:
 
 - `M` (no modifiers), except while you type in a text field.
 - `Cmd+Shift+M` (macOS) and `Ctrl+Shift+M` (other systems), everywhere, including text fields.
@@ -56,3 +58,7 @@ If test 1 or 3 fails, Superhuman sees the event before this extension. Next step
 
 1. Add `"world": "MAIN"` to the `content_scripts` entry in `manifest.json` (Chrome 111 or later), so the script runs in the page's own JavaScript context.
 2. If the profile switcher still does not open, something on the page calls `preventDefault()` on that `keydown`. To find it, temporarily wrap `KeyboardEvent.prototype.preventDefault` in the MAIN world and log `new Error().stack`.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
