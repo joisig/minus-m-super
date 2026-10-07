@@ -2,10 +2,7 @@
 
 This is a purely AI-generated Chrome extension, meant to be loaded unpacked. I made it to fix an annoyance I had with Superhuman: I kept pressing a keyboard shortcut by accident, and I could not find a way to turn that shortcut off in Superhuman itself.
 
-The extension (Manifest V3) stops Superhuman (`https://mail.superhuman.com/*`) from reacting to:
-
-- `M` (no modifiers), except while you type in a text field.
-- `Cmd+Shift+M` (macOS) and `Ctrl+Shift+M` (other systems), everywhere, including text fields.
+The extension (Manifest V3) stops Superhuman (`https://mail.superhuman.com/*`) from reacting to `Cmd+Shift+M` (macOS) and `Ctrl+Shift+M` (other systems). It blocks both combos on all systems, everywhere in Superhuman, including text fields.
 
 All other Superhuman shortcuts still work. Chrome's own `Cmd+Shift+M` profile switcher also still works.
 
@@ -29,7 +26,7 @@ After you change `block.js`, click the reload icon on the extension's card in `c
 
 ## Block more keys
 
-Edit the `BLOCKED` table at the top of `block.js`. Each row is one key combo:
+Edit the `BLOCKED` table at the top of `block.js`. Each row is one key combo. For example, this row also blocks plain `M`, except while you type in a text field:
 
 ```js
 // { code, shift, meta, ctrl, alt, inEditable }
@@ -44,17 +41,15 @@ To see which events the extension blocks, set `DEBUG = true` in `block.js` and l
 
 ## Manual tests
 
-1. Inbox list view: press `M`. No popup.
-2. Open a thread: press `M`. No popup.
-3. Press `Cmd+Shift+M` in list view, in a thread, and in an open compose window. No Superhuman popup, and Chrome's profile switcher opens each time.
-4. In compose or reply, type "Mamma mia". The text appears normally.
-5. In the search box and the `Cmd+K` command palette, type "m". It works normally.
-6. `E`, `J`/`K`, `Enter`, `Cmd+K`, `C`, `R` and `Shift+M` all still work.
-7. The DevTools console shows no errors from the extension.
+1. Press `Cmd+Shift+M` in list view, in a thread, and in an open compose window. No Superhuman popup, and Chrome's profile switcher opens each time.
+2. In compose or reply, type "Mamma mia". The text appears normally.
+3. In the search box and the `Cmd+K` command palette, type "m". It works normally.
+4. `M`, `Shift+M`, `E`, `J`/`K`, `Enter`, `Cmd+K`, `C` and `R` all still work as before.
+5. The DevTools console shows no errors from the extension.
 
 ## If Superhuman still gets the key
 
-If test 1 or 3 fails, Superhuman sees the event before this extension. Next steps:
+If test 1 fails, Superhuman sees the event before this extension. Next steps:
 
 1. Add `"world": "MAIN"` to the `content_scripts` entry in `manifest.json` (Chrome 111 or later), so the script runs in the page's own JavaScript context.
 2. If the profile switcher still does not open, something on the page calls `preventDefault()` on that `keydown`. To find it, temporarily wrap `KeyboardEvent.prototype.preventDefault` in the MAIN world and log `new Error().stack`.

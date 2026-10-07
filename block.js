@@ -18,7 +18,6 @@
 //   inEditable: true  = block even while typing in a text field.
 //               false = let the key through while typing in a text field.
 const BLOCKED = [
-  { code: 'KeyM', shift: false, meta: false, ctrl: false, alt: false, inEditable: false },
   { code: 'KeyM', shift: true,  meta: true,  ctrl: false, alt: false, inEditable: true  },
   { code: 'KeyM', shift: true,  meta: false, ctrl: true,  alt: false, inEditable: true  },
 ];
